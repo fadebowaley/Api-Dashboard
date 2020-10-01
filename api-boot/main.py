@@ -18,26 +18,22 @@ def fetch_bitcoin():
     print(result)
 
 
-@app.route('/schdule')
-def do_job():
-    print("This is reading Time")
+@app.route('/Dashboard')
+def fetch_bitcoin_by_currency(x):
+    print("Getting Prices  in ........", x)
+    result  = data['bpi'][x]
+    print(result)
 
-
-schedule.every(10).seconds.do(fetch_bitcoin)
-
+#schedule.every(10).seconds.do(fetch_bitcoin)
+schedule.every(10).seconds.do(fetch_bitcoin_by_currency, 'USD')
+schedule.every(10).seconds.do(fetch_bitcoin_by_currency, 'GBP')
+schedule.every(10).seconds.do(fetch_bitcoin_by_currency, 'EUR')
 
 
 while True:
     schedule.run_pending()
     time.sleep(1)
 
-
-
-
-
-@app.route('/')
-def calendar():
-    return render_template("json.html")
 
 
 @app.route('/data')
